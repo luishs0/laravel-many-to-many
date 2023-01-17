@@ -20,5 +20,12 @@
             <span>No type selected</span>
         @endif
 
+        <div class="technologies">
+            <span>Technologies:</span>
+            @foreach ($project->technologies as $technology)
+                <span>{{ $technology->name }}</span>
+            @endforeach
+        </div>
+
     </div>
 @endsection
