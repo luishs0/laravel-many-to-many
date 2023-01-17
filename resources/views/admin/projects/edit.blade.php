@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container text-white mt-5 d-flex flex-column justify-content-center">
-        <h1 class="text-center mb-5">Modifica {{ $project->slug }}</h1>
+        <h1 class="text-center mb-5">Change {{ $project->slug }}</h1>
 
         <div class="row justify-content-center">
 
@@ -36,7 +36,7 @@
                         <input type="file" name="cover_image" id="cover_image" class="form-control">
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-5">
                         <label for="type">Type</label>
                         <select name="type_id" id="type" class="form-select">
                             <option value="">----</option>
@@ -45,6 +45,18 @@
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="form-group mb-5">
+                        <h4>Technologies</h4>
+                        @foreach ($technologies as $technology)
+                            <div class="form-check">
+                                <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                                    class="form-check-input" value="{{ $technology->id }}" @checked($project->technologies->contains($technology))>
+                                <label for="technology-{{ $technology->id }}"
+                                    class="form-check-label">{{ $technology->name }}</label>
+                            </div>
+                        @endforeach
                     </div>
 
                     <div class="form-group mb-5">
