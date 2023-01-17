@@ -20,7 +20,6 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        $technologies = Technology::all();
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -32,7 +31,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -51,7 +51,12 @@ class ProjectController extends Controller
             $form_data['cover_image'] = $path;
         }
 
-        $post = Project::create($form_data);
+        $project = Project::create($form_data);
+
+        if ($request->has('technologies')) {
+            $project->technologies()->attach($request->technologies);
+        }
+
         return redirect()->route('admin.projects.index');
     }
 
